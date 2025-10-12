@@ -14,7 +14,7 @@ export class CheckOutSchemaService {
     string: () => z.string(),
     number: () => z.number(),
     boolean: () => z.boolean(),
-    SchemaTypeEnum: () => z.nativeEnum(SchemaTypeEnum),
+    SchemaTypeEnum: () => z.enum(SchemaTypeEnum),
   };
   createDynamicSchema(schema: any) {
     const schemaShape: Record<string, ZodType> = {};
