@@ -16,13 +16,32 @@
         },
         "type": {
             "type": "SchemaTypeEnum"
+        },
+        "address": {
+            "type": "schema",
+            "schema": {
+                "address1": {
+                    "type": "string"
+                },
+                "address2": {
+                    "type": "string"
+                },
+                "zipCode": {
+                    "type": "number"
+                }
+            }
         }
     },
     "data": {
         "name": "oscar",
         "edad": 40,
         "isMale": true,
-        "type": "user"
+        "type": "user",
+        "address": {
+            "address1": "add 1",
+            "address2": "add 2",
+            "zipCode": 1234
+        }
     }
 }
 ````
@@ -32,7 +51,12 @@ result
     "name": "oscar",
     "edad": 40,
     "isMale": true,
-    "type": "user"
+    "type": "user",
+    "address": {
+        "address1": "add 1",
+        "address2": "add 2",
+        "zipCode": 1234
+    }
 }
 ````
 ### bad request example
@@ -50,13 +74,31 @@ result
         },
         "type": {
             "type": "SchemaTypeEnum"
+        },
+        "address": {
+            "type": "schema",
+            "schema": {
+                "address1": {
+                    "type": "string"
+                },
+                "address2": {
+                    "type": "string"
+                },
+                "zipCode": {
+                    "type": "number"
+                }
+            }
         }
     },
     "data": {
         "name": "oscar",
         "edad": 40,
         "isMale": true,
-        "type": "student"
+        "type": "user",
+        "address": {
+            "address1": "add 1",
+            "address2": "add 2"
+        }
     }
 }
 ````
@@ -65,17 +107,13 @@ result
 {
     "message": [
         {
-            "code": "invalid_value",
-            "values": [
-                "user",
-                "admin",
-                "developer",
-                "guest"
-            ],
+            "expected": "number",
+            "code": "invalid_type",
             "path": [
-                "type"
+                "address",
+                "zipCode"
             ],
-            "message": "Invalid option: expected one of \"user\"|\"admin\"|\"developer\"|\"guest\""
+            "message": "Invalid input: expected number, received undefined"
         }
     ],
     "error": "Bad Request",
