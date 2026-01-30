@@ -25,9 +25,10 @@ export class CheckOutSchemaService {
   createDynamicSchema(schema: any) {
     const schemaShape: Record<string, ZodType> = {};
     for (const [key, value] of Object.entries(schema as SchemaJson)) {
-      console.log(value);
       if (value.type === 'schema') {
         schemaShape[key] = this.createDynamicSchema(value.schema);
+      } else if (value.type === 'arrayOfObjects') {
+        schemaShape[key] = z.array(this.createDynamicSchema(value.schema));
       } else {
         const zodType = this.typeToZodSchema[value.type];
         if (!zodType)
